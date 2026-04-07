@@ -1,40 +1,28 @@
 ```
-# Environment variables
-.env
-.env.local
-.env.*
-
-# Dependencies
-node_modules/
-
-# Package manager
-package-lock.json
-
-# Archives
+# Compressed files
 *.tar.gz
 
-# Logs and temporary files
+# Environment
+.env
+.env.local
+*.env.*
+
+# Logs and temp files
 *.log
 *.tmp
+*.swp
 
-# Editor/IDE
+# Editors
 .vscode/
 .idea/
-*.swp
-*.swo
 
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# Build outputs
-dist/
-build/
-*.out
-
-# System files
-.DS_Store
-Thumbs.db
+.Python
+venv/
+.venv/
+.env
 ```
