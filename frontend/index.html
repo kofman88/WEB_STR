@@ -1,95 +1,550 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CHM Finance — Algo Trading Platform</title>
-  <meta name="description" content="Современный сайт в стиле CHM Finance: лендинг, API статус, регистрация, вход и кабинет трейдера." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css" />
+  <title>CHM Finance — Crypto Trading Automation Platform</title>
+  <meta name="description" content="CHM Finance automates crypto trading with ready-made bots, backtesting, risk management, strategy marketplace, and 24/7 monitoring." />
+  <meta name="theme-color" content="#0A0F1E" />
+  <meta name="robots" content="index,follow" />
+  <meta name="color-scheme" content="dark light" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:; connect-src 'self' https:;" />
+  <meta property="og:title" content="CHM Finance — Automate Crypto Trading 24/7" />
+  <meta property="og:description" content="Build and run crypto bots on Binance, Bybit and OKX with CHM Finance." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1642052501945-0f80256f9e81?q=80&w=1600&auto=format&fit=crop" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            chm: {
+              teal: '#00D4AA',
+              purple: '#7C3AED',
+              dark: '#0A0F1E',
+              light: '#F8FAFC'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            orbit: ['Orbitron', 'Inter', 'sans-serif']
+          },
+          boxShadow: {
+            glass: '0 10px 40px rgba(0,0,0,.35)'
+          },
+          animation: {
+            floaty: 'floaty 6s ease-in-out infinite',
+            pulseSoft: 'pulseSoft 2.5s ease-in-out infinite'
+          },
+          keyframes: {
+            floaty: {
+              '0%,100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' }
+            },
+            pulseSoft: {
+              '0%,100%': { boxShadow: '0 0 0 0 rgba(0,212,170,.2)' },
+              '50%': { boxShadow: '0 0 0 14px rgba(0,212,170,0)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "CHM Finance",
+    "description": "Crypto trading automation platform with strategy bots, backtesting and risk management.",
+    "serviceType": "Crypto Trading Automation",
+    "areaServed": "Global",
+    "offers": {
+      "@type": "Offer",
+      "description": "20% performance fee from profit, capped at $50/month"
+    }
+  }
+  </script>
+  <style>
+    .glass { background: rgba(15, 23, 42, .45); backdrop-filter: blur(10px); border: 1px solid rgba(148, 163, 184, .2); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .active-link { color: #00D4AA !important; }
+    .particle { position: absolute; border-radius: 9999px; filter: blur(2px); opacity: .35; animation: float 10s linear infinite; }
+    @keyframes float { from { transform: translateY(0); } to { transform: translateY(-160vh); } }
+  </style>
 </head>
-<body>
-  <header class="header">
-    <div class="container nav">
-      <div class="logo">CHM</div>
-      <nav>
-        <a href="#features">Возможности</a>
-        <a href="#status">API статус</a>
-        <a href="#auth">Вход</a>
+<body class="bg-chm-dark text-slate-100 font-sans antialiased selection:bg-chm-purple/40">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-[999] focus:m-4 focus:rounded-md focus:bg-chm-teal focus:px-4 focus:py-2 focus:text-black">Skip to content</a>
+
+  <header id="topNav" class="fixed inset-x-0 top-0 z-50 border-b border-slate-700/40 bg-chm-dark/80 backdrop-blur-lg">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <a href="#hero" class="font-orbit text-xl font-black tracking-widest text-chm-teal" aria-label="CHM Home">CHM</a>
+      <nav class="hidden items-center gap-6 md:flex" aria-label="Main navigation">
+        <a href="#bots" class="nav-link text-slate-300 hover:text-chm-teal">Bots</a>
+        <a href="#features" class="nav-link text-slate-300 hover:text-chm-teal">Features</a>
+        <a href="#backtest" class="nav-link text-slate-300 hover:text-chm-teal">Backtest</a>
+        <a href="#pricing" class="nav-link text-slate-300 hover:text-chm-teal">Pricing</a>
+        <a href="#faq" class="nav-link text-slate-300 hover:text-chm-teal">FAQ</a>
       </nav>
-      <a href="#auth" class="btn btn-primary">Начать</a>
+      <div class="flex items-center gap-2">
+        <button id="langToggle" class="rounded-lg border border-slate-600 px-3 py-2 text-xs" aria-label="Toggle language">EN/RU</button>
+        <button id="themeToggle" class="rounded-lg border border-slate-600 px-3 py-2 text-xs" aria-label="Toggle dark mode">☀️</button>
+        <button id="menuBtn" class="rounded-lg border border-slate-600 p-2 md:hidden" aria-label="Open mobile menu">☰</button>
+      </div>
+    </div>
+    <div id="mobileNav" class="hidden border-t border-slate-700/40 bg-chm-dark px-4 py-3 md:hidden">
+      <div class="flex flex-col gap-3">
+        <a href="#bots" class="mobile-link">Bots</a>
+        <a href="#features" class="mobile-link">Features</a>
+        <a href="#backtest" class="mobile-link">Backtest</a>
+        <a href="#pricing" class="mobile-link">Pricing</a>
+        <a href="#faq" class="mobile-link">FAQ</a>
+      </div>
     </div>
   </header>
 
-  <main>
-    <section class="hero container">
-      <p class="badge">Hybrid Intelligence Trading</p>
-      <h1>Полностью рабочий сайт в стиле <span>CHM Finance</span></h1>
-      <p class="subtitle">Лендинг + рабочая авторизация + проверка backend API + быстрый деплой на cPanel одной командой.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#auth">Создать аккаунт</a>
-        <a class="btn btn-ghost" href="#status">Проверить API</a>
-      </div>
-    </section>
-
-    <section id="features" class="container grid3 section">
-      <article class="card">
-        <h3>Сигналы и боты</h3>
-        <p>Управление торговыми ботами, настройка стратегий и контроль рисков в одном интерфейсе.</p>
-      </article>
-      <article class="card">
-        <h3>Бэктест в 1 клик</h3>
-        <p>Проверяйте идеи на исторических данных и сравнивайте сценарии по доходности и просадке.</p>
-      </article>
-      <article class="card">
-        <h3>Подключение бирж</h3>
-        <p>Поддержка Binance, Bybit, OKX и BingX через backend API.</p>
-      </article>
-    </section>
-
-    <section id="status" class="container section">
-      <div class="panel">
-        <div>
-          <h2>Статус API</h2>
-          <p class="muted">Нажмите кнопку, чтобы проверить <code>/api/health</code>.</p>
+  <main id="main" class="pt-20">
+    <section id="hero" class="relative min-h-[92vh] overflow-hidden px-4 py-14 sm:px-6 lg:px-8">
+      <div id="particles" class="pointer-events-none absolute inset-0"></div>
+      <div class="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
+        <div class="relative z-10 reveal">
+          <span class="inline-flex rounded-full border border-chm-teal/40 bg-chm-teal/10 px-3 py-1 text-xs font-semibold text-chm-teal">CHM Finance • Crypto Automation</span>
+          <h1 class="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl" data-i18n="heroTitle">Automate Crypto Trading 24/7 with CHM Bots</h1>
+          <p class="mt-5 max-w-xl text-slate-300" data-i18n="heroSub">Launch ready-made bots, backtest strategies, manage risk and monitor your trading from one premium dashboard.</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <button data-modal="exchangeModal" class="open-modal animate-pulseSoft rounded-xl bg-chm-teal px-5 py-3 font-semibold text-black transition hover:scale-105">Connect Exchange</button>
+            <button data-modal="authModal" class="open-modal rounded-xl border border-slate-500 px-5 py-3 font-semibold hover:border-chm-purple hover:text-chm-purple">Start Free</button>
+          </div>
+          <p class="mt-4 text-xs text-slate-400">Past performance ≠ future results. Crypto markets are volatile. DYOR.</p>
         </div>
-        <button id="healthBtn" class="btn btn-primary">Проверить API</button>
+        <div class="relative reveal">
+          <div class="glass rounded-3xl p-4 shadow-glass">
+            <canvas id="heroChart" height="280" aria-label="PNL chart" role="img"></canvas>
+          </div>
+          <div class="absolute -left-6 -top-6 hidden rounded-2xl border border-slate-600/40 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 shadow-glass md:block animate-floaty">24/7 Monitoring Active</div>
+        </div>
       </div>
-      <pre id="healthOutput" class="output">Ожидание проверки...</pre>
+      <div class="mx-auto mt-12 grid max-w-7xl grid-cols-3 gap-3 text-center sm:gap-6">
+        <div class="glass reveal rounded-2xl p-4"><p id="counterProfit" class="text-2xl font-bold text-chm-teal">0</p><p class="text-xs text-slate-400">User Profit</p></div>
+        <div class="glass reveal rounded-2xl p-4"><p id="counterCycles" class="text-2xl font-bold text-chm-purple">0</p><p class="text-xs text-slate-400">Trade Cycles</p></div>
+        <div class="glass reveal rounded-2xl p-4"><p id="counterDeposits" class="text-2xl font-bold text-emerald-300">0</p><p class="text-xs text-slate-400">Deposits</p></div>
+      </div>
     </section>
 
-    <section id="auth" class="container grid2 section">
-      <form id="registerForm" class="card form-card">
-        <h3>Регистрация</h3>
-        <input name="email" type="email" placeholder="Email" required />
-        <input name="password" type="password" placeholder="Пароль (min 6)" minlength="6" required />
-        <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
-        <p class="muted small">После регистрации выполните вход справа.</p>
-      </form>
-
-      <form id="loginForm" class="card form-card">
-        <h3>Вход</h3>
-        <input name="email" type="email" placeholder="Email" required />
-        <input name="password" type="password" placeholder="Пароль" required />
-        <button class="btn btn-primary" type="submit">Войти</button>
-        <button id="loadBots" class="btn btn-ghost" type="button">Загрузить моих ботов</button>
-      </form>
+    <section id="reviews" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mb-6 flex items-center justify-between reveal"><h2 class="text-3xl font-bold">Traders Love CHM</h2><p class="text-sm text-slate-400">⭐⭐⭐⭐⭐ 4.9/5 average</p></div>
+      <div class="relative overflow-hidden rounded-2xl border border-slate-700/40 glass reveal">
+        <div id="reviewTrack" class="flex transition-transform duration-500"></div>
+      </div>
     </section>
 
-    <section class="container section">
-      <h2>Ответы API</h2>
-      <pre id="authOutput" class="output">Ожидание действий пользователя...</pre>
+    <section id="bots" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between reveal">
+        <h2 class="text-3xl font-bold">Ready-Made Bots Marketplace</h2>
+        <div class="flex flex-wrap gap-2">
+          <select id="marketFilter" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-sm" aria-label="Market filter"><option value="all">All Markets</option><option value="spot">Spot</option><option value="futures">Futures</option></select>
+          <select id="riskFilter" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-sm" aria-label="Risk filter"><option value="all">All Risks</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select>
+          <select id="sortFilter" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-sm" aria-label="Sort by PNL"><option value="desc">PNL ↓</option><option value="asc">PNL ↑</option></select>
+        </div>
+      </div>
+      <div id="botsGrid" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"></div>
+    </section>
+
+    <section id="exchanges" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 reveal">
+      <div class="glass rounded-3xl p-8">
+        <h2 class="text-3xl font-bold">Connect Exchanges in One Click</h2>
+        <div class="mt-6 grid grid-cols-3 gap-3 text-center">
+          <div class="rounded-xl border border-slate-600/50 p-4">Binance</div>
+          <div class="rounded-xl border border-slate-600/50 p-4">Bybit</div>
+          <div class="rounded-xl border border-slate-600/50 p-4">OKX</div>
+        </div>
+        <button data-modal="exchangeModal" class="open-modal mt-6 rounded-xl bg-chm-purple px-5 py-3 font-semibold text-white hover:scale-105 transition">One-Click API Connect</button>
+      </div>
+    </section>
+
+    <section id="features" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <h2 class="mb-7 text-3xl font-bold reveal">Platform Features</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="feature reveal glass rounded-2xl p-5"><h3 class="font-semibold">Spot & Futures Bots</h3><p class="mt-2 text-sm text-slate-300">Deploy bots with adjustable order sizing and leverage presets.</p></article>
+        <article class="feature reveal glass rounded-2xl p-5"><h3 class="font-semibold">Risk Management</h3><p class="mt-2 text-sm text-slate-300">Stop-Loss, Trailing TP, Multi-Takes and drawdown controls.</p></article>
+        <article class="feature reveal glass rounded-2xl p-5"><h3 class="font-semibold">Indicators</h3><p class="mt-2 text-sm text-slate-300">RSI, CCI, Bollinger, TradingView signals and custom logic.</p></article>
+        <article class="feature reveal glass rounded-2xl p-5"><h3 class="font-semibold">24/7 Monitor</h3><p class="mt-2 text-sm text-slate-300">Realtime alerts and uptime automation without manual watching.</p></article>
+        <article class="feature reveal glass rounded-2xl p-5"><h3 class="font-semibold">Marketplace</h3><p class="mt-2 text-sm text-slate-300">Copy top-performing strategy templates instantly.</p></article>
+        <article class="feature reveal glass rounded-2xl p-5"><h3 class="font-semibold">Backtests</h3><p class="mt-2 text-sm text-slate-300">Replay historical data and validate ideas before going live.</p></article>
+      </div>
+    </section>
+
+    <section id="backtest" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <form id="backtestForm" class="glass reveal rounded-2xl p-6">
+          <h2 class="text-2xl font-bold">Backtesting Demo</h2>
+          <p class="mt-2 text-sm text-slate-300">Adjust parameters and generate simulated PNL curve.</p>
+          <div class="mt-4 grid gap-3">
+            <label class="text-sm">Pair <input class="mt-1 w-full rounded-lg border border-slate-600 bg-slate-900 p-2" value="BTC/USDT" required></label>
+            <label class="text-sm">Timeframe <select class="mt-1 w-full rounded-lg border border-slate-600 bg-slate-900 p-2"><option>1h</option><option>4h</option><option>1d</option></select></label>
+            <label class="text-sm">Risk % <input id="riskInput" type="number" min="0.1" max="5" step="0.1" value="1.2" class="mt-1 w-full rounded-lg border border-slate-600 bg-slate-900 p-2" required></label>
+            <button class="mt-2 rounded-xl bg-chm-teal px-5 py-3 font-semibold text-black" type="submit">Run Backtest</button>
+          </div>
+          <p class="mt-4 text-xs text-slate-400">Educational simulation only. Not investment advice.</p>
+        </form>
+        <div class="glass reveal rounded-2xl p-4"><canvas id="backtestChart" height="280"></canvas></div>
+      </div>
+    </section>
+
+    <section id="pricing" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 reveal">
+      <div class="grid gap-4 lg:grid-cols-2">
+        <div class="glass rounded-2xl p-6">
+          <h2 class="text-3xl font-bold">Transparent Performance Fees</h2>
+          <p class="mt-3 text-slate-300">We earn only when you do: <strong>20% from net profit</strong>, capped at <strong>$50/month</strong>.</p>
+        </div>
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-2xl font-bold">Referral Program</h3>
+          <p class="mt-3 text-slate-300">Invite friends and earn <strong>30% revenue share</strong> from platform fees.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="glass reveal rounded-3xl p-6">
+        <div class="mb-4 flex items-center justify-between"><h2 class="text-3xl font-bold">Dashboard Preview</h2><button data-modal="authModal" class="open-modal rounded-lg bg-chm-purple px-4 py-2 text-sm">Unlock via Login</button></div>
+        <div id="dashboardContent" class="grid gap-4 md:grid-cols-3">
+          <div class="rounded-xl border border-slate-600/50 p-4"><p class="text-sm text-slate-400">Active Bots</p><p class="text-2xl font-bold">4</p></div>
+          <div class="rounded-xl border border-slate-600/50 p-4"><p class="text-sm text-slate-400">Today PNL</p><p class="text-2xl font-bold text-emerald-400">+3.2%</p></div>
+          <div class="rounded-xl border border-slate-600/50 p-4"><p class="text-sm text-slate-400">Risk Status</p><p class="text-2xl font-bold text-yellow-300">Balanced</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <h2 class="mb-6 text-3xl font-bold reveal">FAQ</h2>
+      <div id="faqList" class="space-y-3"></div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 CHM Trading Platform</p>
+  <footer class="border-t border-slate-700/50 px-4 py-10 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-6 md:grid-cols-4">
+      <div><p class="font-orbit text-xl font-bold text-chm-teal">CHM Finance</p><p class="mt-2 text-sm text-slate-400">Automated crypto trading infrastructure.</p></div>
+      <div><h3 class="font-semibold">Legal</h3><ul class="mt-2 space-y-2 text-sm text-slate-300"><li><a href="privacy.html" class="hover:text-chm-teal">Privacy Policy</a></li><li><a href="terms.html" class="hover:text-chm-teal">Terms</a></li><li><a href="risk.html" class="hover:text-chm-teal">Disclaimer</a></li></ul></div>
+      <div><h3 class="font-semibold">Social</h3><ul class="mt-2 space-y-2 text-sm text-slate-300"><li><a href="#" aria-label="Telegram">Telegram</a></li><li><a href="#" aria-label="X">X / Twitter</a></li><li><a href="#" aria-label="YouTube">YouTube</a></li></ul></div>
+      <div>
+        <h3 class="font-semibold">Newsletter</h3>
+        <form id="newsletterForm" class="mt-2 flex gap-2"><input aria-label="Email" type="email" required class="w-full rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-sm" placeholder="you@email.com"><button class="rounded-lg bg-chm-teal px-4 py-2 text-sm font-semibold text-black">Join</button></form>
+      </div>
     </div>
+    <p class="mx-auto mt-8 max-w-7xl text-xs text-slate-500">© 2026 CHM Finance. Not financial advice. Trading crypto carries substantial risk.</p>
   </footer>
 
-  <script src="./app.js"></script>
+  <div id="toast" class="pointer-events-none fixed right-4 top-20 z-[60] translate-x-[120%] rounded-xl bg-slate-900 px-4 py-3 text-sm text-white shadow-2xl transition"></div>
+
+  <div id="authModal" class="modal fixed inset-0 z-[70] hidden items-center justify-center bg-black/60 p-4" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="glass w-full max-w-md rounded-2xl p-6">
+      <div class="mb-4 flex items-center justify-between"><h3 id="authTitle" class="text-xl font-bold">Login / Signup</h3><button class="close-modal">✕</button></div>
+      <form id="authForm" class="space-y-3">
+        <input name="email" type="email" placeholder="Email" required class="w-full rounded-lg border border-slate-600 bg-slate-900 p-2">
+        <input name="password" type="password" placeholder="Password (min 6)" minlength="6" required class="w-full rounded-lg border border-slate-600 bg-slate-900 p-2">
+        <button class="w-full rounded-lg bg-chm-teal py-2 font-semibold text-black">Continue</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="exchangeModal" class="modal fixed inset-0 z-[70] hidden items-center justify-center bg-black/60 p-4" role="dialog" aria-modal="true" aria-labelledby="exchangeTitle">
+    <div class="glass w-full max-w-lg rounded-2xl p-6">
+      <div class="mb-4 flex items-center justify-between"><h3 id="exchangeTitle" class="text-xl font-bold">Connect Exchange API</h3><button class="close-modal">✕</button></div>
+      <form id="exchangeForm" class="space-y-3">
+        <input name="exchange" placeholder="Exchange (Binance/Bybit/OKX)" required class="w-full rounded-lg border border-slate-600 bg-slate-900 p-2">
+        <input name="apiKey" placeholder="API Key" required class="w-full rounded-lg border border-slate-600 bg-slate-900 p-2">
+        <input name="apiSecret" placeholder="API Secret" required class="w-full rounded-lg border border-slate-600 bg-slate-900 p-2">
+        <button class="w-full rounded-lg bg-chm-purple py-2 font-semibold">Connect</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const state = {
+        lang: localStorage.getItem('lang') || 'en',
+        theme: localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      };
+
+      const i18n = {
+        en: {
+          heroTitle: 'Automate Crypto Trading 24/7 with CHM Bots',
+          heroSub: 'Launch ready-made bots, backtest strategies, manage risk and monitor your trading from one premium dashboard.'
+        },
+        ru: {
+          heroTitle: 'Автоматизируйте криптотрейдинг 24/7 с ботами CHM',
+          heroSub: 'Запускайте готовых ботов, тестируйте стратегии и управляйте рисками в единой платформе.'
+        }
+      };
+
+      const botData = [
+        { name: 'BTC Long Pulse', market: 'futures', risk: 'medium', pnl: 9.1, min: 300, time: '8h' },
+        { name: 'ETH Trend Pro', market: 'futures', risk: 'high', pnl: 15.3, min: 500, time: '12h' },
+        { name: 'SOL Spot Grid', market: 'spot', risk: 'low', pnl: 7.4, min: 150, time: '6h' },
+        { name: 'BNB Swing X', market: 'spot', risk: 'medium', pnl: 11.2, min: 250, time: '10h' },
+        { name: 'XRP Breakout', market: 'futures', risk: 'high', pnl: 13.8, min: 400, time: '7h' },
+        { name: 'ADA Smart DCA', market: 'spot', risk: 'low', pnl: 6.7, min: 120, time: '18h' },
+        { name: 'AVAX Momentum', market: 'futures', risk: 'medium', pnl: 10.2, min: 260, time: '9h' },
+        { name: 'DOGE Hyper Scalper', market: 'futures', risk: 'high', pnl: 18.1, min: 600, time: '2h' }
+      ];
+
+      const reviews = [
+        ['Ava M.', '"Started with $500 and loved the risk controls. Clean UX."'],
+        ['Maksim K.', '"Backtesting saved me from bad setups. Very practical platform."'],
+        ['Sara T.', '"Marketplace strategies are easy to copy and adjust."'],
+        ['Dmitry L.', '"The bot uptime and alerts are exactly what I needed."'],
+        ['Ken W.', '"Transparent fee model, no hidden surprises."']
+      ];
+
+      const faq = [
+        ['How do I connect an exchange?', 'Open Connect Exchange modal, paste API keys and confirm.'],
+        ['Do bots guarantee profit?', 'No. Past performance does not guarantee future returns.'],
+        ['Is this financial advice?', 'No. CHM is a software tool only.'],
+        ['What fees do you charge?', '20% of profit, capped at $50/month.'],
+        ['What is referral payout?', '30% from platform fee revenue of invited users.'],
+        ['Can I use spot and futures?', 'Yes, both are supported with separate risk settings.'],
+        ['Do you have stop loss?', 'Yes: SL, Trailing TP, and Multi-Take logic are supported.'],
+        ['Can I backtest?', 'Yes, built-in backtesting on historical data.'],
+        ['Is API key safe?', 'Use exchange key permissions and IP restrictions only.'],
+        ['Do you support mobile?', 'Yes, full mobile-first responsive interface.']
+      ];
+
+      const $$ = s => document.querySelector(s);
+      const $$$ = s => [...document.querySelectorAll(s)];
+
+      function initTheme() {
+        document.documentElement.classList.toggle('dark', state.theme === 'dark');
+        document.body.classList.toggle('bg-chm-light', state.theme === 'light');
+        document.body.classList.toggle('text-slate-900', state.theme === 'light');
+        $$('#themeToggle').textContent = state.theme === 'dark' ? '☀️' : '🌙';
+      }
+
+      function initLang() {
+        document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = i18n[state.lang][el.dataset.i18n]);
+      }
+
+      function toast(msg) {
+        const t = $$('#toast');
+        t.textContent = msg;
+        t.classList.remove('translate-x-[120%]');
+        setTimeout(() => t.classList.add('translate-x-[120%]'), 2200);
+      }
+
+      function openModal(id) { $$('#' + id).classList.remove('hidden'); $$('#' + id).classList.add('flex'); }
+      function closeModals() { $$$('.modal').forEach(m => { m.classList.add('hidden'); m.classList.remove('flex'); }); }
+
+      function animateCounter(id, end, prefix = '$', suffix = '+') {
+        const el = $$('#' + id); let n = 0;
+        const step = end / 60;
+        const timer = setInterval(() => {
+          n += step;
+          if (n >= end) { n = end; clearInterval(timer); }
+          el.textContent = `${prefix}${Math.round(n).toLocaleString()}${suffix}`;
+        }, 26);
+      }
+
+      function renderReviews() {
+        const track = $$('#reviewTrack');
+        track.innerHTML = reviews.map(([n, t]) => `<article class="min-w-full p-6 sm:min-w-[50%] lg:min-w-[33.333%]"><div class="h-full rounded-2xl border border-slate-700/50 p-5"><p class="text-chm-teal">★★★★★</p><p class="mt-3 text-slate-200">${t}</p><p class="mt-4 text-sm text-slate-400">— ${n}</p></div></article>`).join('');
+        let idx = 0;
+        setInterval(() => {
+          idx = (idx + 1) % reviews.length;
+          track.style.transform = `translateX(-${idx * 100}%)`;
+        }, 3200);
+      }
+
+      function renderBots() {
+        const market = $$('#marketFilter').value;
+        const risk = $$('#riskFilter').value;
+        const sort = $$('#sortFilter').value;
+        const grid = $$('#botsGrid');
+        let filtered = botData.filter(b => (market === 'all' || b.market === market) && (risk === 'all' || b.risk === risk));
+        filtered.sort((a, b) => sort === 'desc' ? b.pnl - a.pnl : a.pnl - b.pnl);
+
+        grid.innerHTML = filtered.map(bot => `
+          <article class="bot-card glass rounded-2xl p-4 transition hover:-translate-y-1 hover:scale-[1.01]">
+            <div class="flex items-start justify-between">
+              <h3 class="font-semibold">${bot.name}</h3>
+              <span class="rounded-full bg-emerald-500/15 px-2 py-1 text-xs text-emerald-300">+${bot.pnl}%</span>
+            </div>
+            <p class="mt-2 text-xs text-slate-400">${bot.market.toUpperCase()} • Risk: <span class="capitalize">${bot.risk}</span></p>
+            <div class="mt-3 grid grid-cols-2 gap-2 text-xs text-slate-300"><p>Min: $${bot.min}</p><p>Avg: ${bot.time}</p></div>
+            <button class="subscribe-btn mt-4 w-full rounded-lg bg-chm-purple px-4 py-2 text-sm font-medium" data-name="${bot.name}">Subscribe</button>
+          </article>
+        `).join('');
+      }
+
+      function initFaq() {
+        const list = $$('#faqList');
+        list.innerHTML = faq.map(([q, a], i) => `
+          <details class="glass rounded-xl p-4 reveal" ${i === 0 ? 'open' : ''}>
+            <summary class="cursor-pointer font-semibold">${q}</summary>
+            <p class="mt-2 text-sm text-slate-300">${a}</p>
+          </details>
+        `).join('');
+      }
+
+      function initScrollSpy() {
+        const sections = ['hero','bots','features','backtest','pricing','faq'].map(id => $$('#' + id));
+        const links = $$$('.nav-link');
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              links.forEach(a => a.classList.toggle('active-link', a.getAttribute('href') === '#' + entry.target.id));
+            }
+          });
+        }, { threshold: 0.45 });
+        sections.forEach(s => s && io.observe(s));
+      }
+
+      function initReveal() {
+        const io = new IntersectionObserver((entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')), { threshold: 0.12 });
+        $$$('.reveal').forEach(el => io.observe(el));
+      }
+
+      function initCharts() {
+        const heroCtx = $$('#heroChart');
+        const backCtx = $$('#backtestChart');
+        const heroData = [5, 9, 8, 12, 11, 15, 13, 18, 17];
+
+        const heroChart = new Chart(heroCtx, {
+          type: 'line',
+          data: { labels: heroData.map((_, i) => i + 1), datasets: [{ label: 'PNL %', data: heroData, borderColor: '#00D4AA', backgroundColor: 'rgba(0,212,170,.2)', fill: true, tension: .35 }] },
+          options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { grid: { color: '#1f2937' } } } }
+        });
+
+        const backChart = new Chart(backCtx, {
+          type: 'line',
+          data: { labels: Array.from({ length: 30 }, (_, i) => i + 1), datasets: [{ label: 'Equity Curve', data: Array.from({ length: 30 }, (_, i) => Math.sin(i / 4) * 5 + i * .9 + 10), borderColor: '#7C3AED', tension: .3 }] },
+          options: { responsive: true, plugins: { legend: { labels: { color: '#cbd5e1' } } }, scales: { y: { grid: { color: '#1f2937' } }, x: { grid: { color: '#1f2937' } } } }
+        });
+
+        setInterval(() => {
+          heroData.push(heroData.at(-1) + (Math.random() * 4 - 1.5));
+          heroData.shift();
+          heroChart.data.datasets[0].data = heroData.map(n => Math.max(0, +n.toFixed(2)));
+          heroChart.update('none');
+        }, 2500);
+
+        $$('#backtestForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const risk = +$$('#riskInput').value;
+          backChart.data.datasets[0].data = Array.from({ length: 30 }, (_, i) => i * (0.6 + Math.random()) * (1 + risk / 10) + Math.sin(i / 3) * 4);
+          backChart.update();
+          toast('Backtest generated');
+        });
+      }
+
+      function initParticles() {
+        const wrap = $$('#particles');
+        for (let i = 0; i < 22; i++) {
+          const d = document.createElement('div');
+          d.className = 'particle';
+          const size = 4 + Math.random() * 9;
+          d.style.width = d.style.height = size + 'px';
+          d.style.left = Math.random() * 100 + '%';
+          d.style.bottom = '-' + (20 + Math.random() * 140) + 'px';
+          d.style.background = i % 2 ? '#00D4AA' : '#7C3AED';
+          d.style.animationDuration = 8 + Math.random() * 12 + 's';
+          d.style.animationDelay = Math.random() * 5 + 's';
+          wrap.appendChild(d);
+        }
+      }
+
+      function initPwa() {
+        const manifest = { name: 'CHM Finance', short_name: 'CHM', start_url: '.', display: 'standalone', background_color: '#0A0F1E', theme_color: '#0A0F1E', icons: [] };
+        const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const link = document.createElement('link');
+        link.rel = 'manifest'; link.href = URL.createObjectURL(blob); document.head.appendChild(link);
+
+        if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+          const swBlob = new Blob([`self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>clients.claim());self.addEventListener('fetch',()=>{});`], { type: 'text/javascript' });
+          navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+        }
+      }
+
+      function initEvents() {
+        $$('#menuBtn').addEventListener('click', () => $$('#mobileNav').classList.toggle('hidden'));
+        $$$('.mobile-link').forEach(a => a.addEventListener('click', () => $$('#mobileNav').classList.add('hidden')));
+        $$('#themeToggle').addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('theme', state.theme); initTheme(); });
+        $$('#langToggle').addEventListener('click', () => { state.lang = state.lang === 'en' ? 'ru' : 'en'; localStorage.setItem('lang', state.lang); initLang(); toast(state.lang === 'ru' ? 'Язык: Русский' : 'Language: English'); });
+
+        $$$('.open-modal').forEach(btn => btn.addEventListener('click', () => openModal(btn.dataset.modal)));
+        $$$('.close-modal').forEach(btn => btn.addEventListener('click', closeModals));
+        $$$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModals(); }));
+
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModals(); });
+
+        ['marketFilter', 'riskFilter', 'sortFilter'].forEach(id => $$('#' + id).addEventListener('change', renderBots));
+        document.addEventListener('click', (e) => {
+          const btn = e.target.closest('.subscribe-btn');
+          if (btn) { toast(`${btn.dataset.name} added to dashboard`); }
+        });
+
+        $$('#authForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          const email = fd.get('email');
+          const password = fd.get('password');
+          if (!/^\S+@\S+\.\S+$/.test(email) || password.length < 6) return toast('Please check credentials');
+          localStorage.setItem('chm_user', JSON.stringify({ email, at: Date.now() }));
+          toast('Logged in successfully');
+          closeModals();
+        });
+
+        $$('#exchangeForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          toast('Exchange connected!');
+          closeModals();
+        });
+
+        $$('#newsletterForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const input = e.target.querySelector('input');
+          if (!/^\S+@\S+\.\S+$/.test(input.value)) return toast('Invalid email');
+          toast('Subscribed!'); input.value = '';
+        });
+      }
+
+      function initGsap() {
+        if (!window.gsap) return;
+        gsap.from('#topNav', { y: -60, opacity: 0, duration: .8, ease: 'power2.out' });
+        gsap.from('#hero h1', { y: 20, opacity: 0, duration: .9, delay: .2 });
+      }
+
+      function initAnalyticsStub() {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function(){ dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', 'G-CHMFINANCESTUB');
+      }
+
+      initTheme();
+      initLang();
+      initParticles();
+      renderReviews();
+      renderBots();
+      initFaq();
+      initScrollSpy();
+      initReveal();
+      initCharts();
+      initEvents();
+      initGsap();
+      initPwa();
+      initAnalyticsStub();
+
+      animateCounter('counterProfit', 50000000, '$', '+');
+      animateCounter('counterCycles', 30000000, '', '+');
+      animateCounter('counterDeposits', 300000000, '$', '+');
+    })();
+  </script>
 </body>
 </html>
