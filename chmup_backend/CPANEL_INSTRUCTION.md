@@ -46,6 +46,27 @@ zip -r backend.zip chmup_backend -x "*/node_modules/*" "*/.git/*"
 
 ### 4) Настройте Node.js App
 
+```
+
+### 2) Загрузите фронтенд
+
+1. Откройте cPanel → **File Manager**.
+2. Перейдите в папку сайта: обычно `/public_html`.
+3. Нажмите **Upload** и загрузите `frontend.zip`.
+4. Выделите `frontend.zip` → **Extract**.
+5. Откройте папку `frontend` и **переместите её содержимое** в `/public_html` (чтобы `index.html` лежал прямо в `/public_html/index.html`).
+6. Удалите `frontend.zip` и пустую папку `frontend` (после переноса).
+
+### 3) Загрузите backend
+
+1. В File Manager перейдите в `/home/<cpanel_user>/`.
+2. Загрузите `backend.zip`.
+3. Выделите `backend.zip` → **Extract**.
+4. Переименуйте папку `chmup_backend` (если нужно) так, чтобы итоговый путь был:
+   `/home/<cpanel_user>/chmup_backend`
+
+### 4) Настройте Node.js App
+
 # 🚀 Быстрый деплой на cPanel (одной командой)
 
 ## 0) Что уже добавлено
@@ -100,6 +121,7 @@ zip -r backend.zip chmup_backend -x "*/node_modules/*" "*/.git/*"
    - **Application root**: `/home/<cpanel_user>/chmup_backend`
    - **Application startup file**: `server.js`
 3. В cPanel Terminal выполните:
+
 
 > Скрипт использует `rsync` по SSH, поэтому на локальной машине должны быть доступны `ssh` и `rsync`.
 
