@@ -7,6 +7,14 @@
 - `chmup_backend/` → в `~/chmup_backend`.
 
 Запуск:
+# 🚀 Быстрый деплой на cPanel (одной командой)
+
+## 0) Что уже добавлено
+В корне репозитория есть скрипт `deploy-cpanel.sh`, который заливает:
+- `frontend/` → в `public_html` (или вашу web-папку),
+- `chmup_backend/` → в `~/chmup_backend`.
+
+## 1) Локально выполните 1 команду
 
 ```bash
 CPANEL_HOST=your-host.com CPANEL_USER=your_user CPANEL_PATH=/home/your_user/public_html ./deploy-cpanel.sh
@@ -53,6 +61,19 @@ zip -r backend.zip chmup_backend -x "*/node_modules/*" "*/.git/*"
    - **Application root**: `/home/<cpanel_user>/chmup_backend`
    - **Application startup file**: `server.js`
 3. В cPanel Terminal выполните:
+> Скрипт использует `rsync` по SSH, поэтому на локальной машине должны быть доступны `ssh` и `rsync`.
+
+---
+
+## 2) Один раз настроить Node.js App в cPanel
+
+1. cPanel → **Setup Node.js App**
+2. **Create Application**:
+   - Node.js version: 18+
+   - Mode: Production
+   - Application root: `/home/your_user/chmup_backend`
+   - Application startup file: `server.js`
+3. В терминале cPanel:
 
 ```bash
 cd ~/chmup_backend
@@ -60,6 +81,7 @@ npm install --production
 ```
 
 4. Создайте/обновите `.env`:
+4. Создайте `.env`:
 
 ```env
 PORT=3000
@@ -115,3 +137,24 @@ cd ~/web_str && git pull && cp -a frontend/. ~/public_html/ && cp -a chmup_backe
 
 - Если через File Manager загрузка больших ZIP не проходит, увеличьте лимит в хостинге или грузите частями.
 - После обновления зависимостей backend снова выполните `npm install --production`.
+5. Нажмите **Restart** в Node.js App.
+
+---
+
+## 3) Проверка
+
+- Frontend: `https://your-domain.com`
+- API health: `https://your-domain.com/api/health`
+
+Ожидаемый ответ:
+
+```json
+{"status":"ok","timestamp":"...","version":"1.0.0"}
+```
+
+---
+
+## Примечания
+
+- Для автоматического входа без пароля можно добавить SSH-ключ в cPanel (рекомендуется).
+- Если backend меняли, после деплоя делайте `npm install --production` при обновлении зависимостей.

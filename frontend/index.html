@@ -546,5 +546,97 @@
       animateCounter('counterDeposits', 300000000, '$', '+');
     })();
   </script>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veles Finance Style — Algo Trading Platform</title>
+  <meta name="description" content="Современный сайт в стиле Veles Finance: лендинг, API статус, регистрация, вход и кабинет трейдера." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <div class="logo">VEL<span>ES</span></div>
+      <nav>
+        <a href="#features">Возможности</a>
+        <a href="#status">API статус</a>
+        <a href="#auth">Вход</a>
+      </nav>
+      <a href="#auth" class="btn btn-primary">Начать</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <p class="badge">Hybrid Intelligence Trading</p>
+      <h1>Полностью рабочий сайт в стиле <span>Veles Finance</span></h1>
+      <p class="subtitle">Лендинг + рабочая авторизация + проверка backend API + быстрый деплой на cPanel одной командой.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#auth">Создать аккаунт</a>
+        <a class="btn btn-ghost" href="#status">Проверить API</a>
+      </div>
+    </section>
+
+    <section id="features" class="container grid3 section">
+      <article class="card">
+        <h3>Сигналы и боты</h3>
+        <p>Управление торговыми ботами, настройка стратегий и контроль рисков в одном интерфейсе.</p>
+      </article>
+      <article class="card">
+        <h3>Бэктест в 1 клик</h3>
+        <p>Проверяйте идеи на исторических данных и сравнивайте сценарии по доходности и просадке.</p>
+      </article>
+      <article class="card">
+        <h3>Подключение бирж</h3>
+        <p>Поддержка Binance, Bybit, OKX и BingX через backend API.</p>
+      </article>
+    </section>
+
+    <section id="status" class="container section">
+      <div class="panel">
+        <div>
+          <h2>Статус API</h2>
+          <p class="muted">Нажмите кнопку, чтобы проверить <code>/api/health</code>.</p>
+        </div>
+        <button id="healthBtn" class="btn btn-primary">Проверить API</button>
+      </div>
+      <pre id="healthOutput" class="output">Ожидание проверки...</pre>
+    </section>
+
+    <section id="auth" class="container grid2 section">
+      <form id="registerForm" class="card form-card">
+        <h3>Регистрация</h3>
+        <input name="email" type="email" placeholder="Email" required />
+        <input name="password" type="password" placeholder="Пароль (min 6)" minlength="6" required />
+        <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+        <p class="muted small">После регистрации выполните вход справа.</p>
+      </form>
+
+      <form id="loginForm" class="card form-card">
+        <h3>Вход</h3>
+        <input name="email" type="email" placeholder="Email" required />
+        <input name="password" type="password" placeholder="Пароль" required />
+        <button class="btn btn-primary" type="submit">Войти</button>
+        <button id="loadBots" class="btn btn-ghost" type="button">Загрузить моих ботов</button>
+      </form>
+    </section>
+
+    <section class="container section">
+      <h2>Ответы API</h2>
+      <pre id="authOutput" class="output">Ожидание действий пользователя...</pre>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Veles Style Trading Platform</p>
+    </div>
+  </footer>
+
+  <script src="./app.js"></script>
 </body>
 </html>
